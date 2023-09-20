@@ -29,6 +29,6 @@ jobs:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
-        echo "Hello ${{ vars.PYPI_REPO }}"
         python setup.py sdist bdist_wheel
+        echo "Publish to '${{ vars.PYPI_REPO }}'"
         twine upload --repository ${{ vars.PYPI_REPO }} dist/*
