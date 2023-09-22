@@ -7,6 +7,6 @@ download example project from https://github.com/loghmanb/django-dynaform/exampl
 got to the folder and run below commands
 code```
 $ pip install -r requirements.txt
-$ python manage.py loaddata database.json.gz
+$ python manage.py loaddata sample-data.json.gz
 $ python manage.py runserver 0:8000
 ```
