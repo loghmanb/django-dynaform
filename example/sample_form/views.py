@@ -1,4 +1,9 @@
 from django.shortcuts import render
 
+from dynaform.service import DynaFormContext
+
 def home(request):
-    return render(request, "home.html", {})
+    context = {
+        'dynaform': DynaFormContext()
+    }
+    return render(request, "home.html", context=context)
