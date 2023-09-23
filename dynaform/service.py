@@ -1,32 +1,38 @@
 from typing import Any, Dict, List, Optional, Union
-from .const import *
 from .models import DynaForm, DynaFormData
 
 
-def get_dynaform_and_data(dynaform_name: str) -> List:
-    result: Dict[str, List[Dict[str, Any]]] = {}
-    dynaform = DynaForm.objects.get(name=dynaform_name)
-    structure = dynaform.structure
-    choice_fields = {}
-    for field, field_stru in structure.items():
-        if field_stru["type"]=="choice":
-            choice_fields[field] = { x[0]: x[1] for x in field_stru["choices"] }
-    dynaform_data = DynaFormData.objects.filter(
-        dynaform_id=dynaform.id
+def get_dynaform_and_data(dynaform_name: str) -> Union[None, List[Dict[str, Any]]]:
+    try:
+        result: List[Dict[str, Any]] = []
+        dynaform = DynaForm.objects.get(name=dynaform_name)
+        structure = dynaform.structure
+        choice_fields = {}
+        for field, field_stru in structure.items():
+            if field_stru["type"] == "choice":
+                choice_fields[field] = {x[0]: x[1] for x in field_stru["choices"]}
+        dynaform_data = DynaFormData.objects.filter(
+            dynaform_id=dynaform.id
         ).order_by("-list_order", "-id")
-    result: List = []
-    for record in dynaform_data:
-        data = DynaFormRecordData(
-            record.id, 
-            dynaform, 
-            record.data,
-            choice_fields,
+        for record in dynaform_data:
+            data = DynaFormRecordData(
+                record.id,
+                dynaform,
+                record.data,
+                choice_fields,
             )
-        result.append(data)
-    return result
+            result.append(data)
+        return result
+    except DynaForm.DoesNotExist:
+        return None
 
 
 class ChoiceFieldValue(str):
+    """Choice field value class."""
+
+    _value = None
+    _choices = {}
+
     def init(self, value: Optional[Union[str, int]], choices: Dict) -> None:
         self._value = value
         self._choices = choices
@@ -34,20 +40,22 @@ class ChoiceFieldValue(str):
     @property
     def label(self) -> str:
         return self._choices.get(self._value)
-    
+
     @property
     def value(self) -> Union[str, int]:
         return self._value
 
 
 class DynaFormRecordData:
+    """DynaForm record."""
+
     def __init__(
-            self, 
-            record_id: int, 
-            dynaform: DynaForm, 
+            self,
+            record_id: int,
+            dynaform: DynaForm,
             data: Dict[str, Any],
             choice_fields: Dict,
-            ) -> None:
+    ) -> None:
         data['id'] = record_id
         data['dynaform'] = dynaform
         for field, stru in choice_fields.items():
@@ -60,10 +68,12 @@ class DynaFormRecordData:
 
 
 class DynaFormContext:
+    """Lazy loading service for accessing to DynaForm data."""
+
     def __init__(self) -> None:
         self._data: Dict[str, List] = {}
 
-    def __getattr__(self, name: str) -> Any:
+    def __getattr__(self, name: str) -> Union[None, List[Dict[str, Any]]]:
         if name not in self._data:
             self._data[name] = get_dynaform_and_data(name)
 
