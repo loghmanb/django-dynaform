@@ -163,4 +163,3 @@ cython_debug/
 #.idea/
 
 example/src
-example/dynaform
