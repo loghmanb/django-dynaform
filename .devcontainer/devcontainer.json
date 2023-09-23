@@ -17,6 +17,7 @@
     "vscode": {
       "extensions": [
         "ms-python.python",
+        "ms-python.pylint",
         "chrismeyers.vscode-pretty-json",
         "github.vscode-github-actions"
       ]
