@@ -36,8 +36,9 @@
       </h5>
       <h6>Email: <a href="mailto:loghmanb@gmail.com">loghmanb@gmail.com</a></h6>
       <hr>
+
+      {% if dynaform.phone_book %}
       <div class="form">
-        {% if dynaform.phone_book %}
         {% for contact in dynaform.phone_book %}
         <div class="card" style="width: 18rem;">
           <div class="card-body">
@@ -51,8 +52,9 @@
           </div>
         </div>
         {% endfor %}
-        {% endif %}
+
       </div>
     </div>
+    {% endif %}
   </body>
 </html>
