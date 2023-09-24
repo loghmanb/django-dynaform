@@ -131,4 +131,4 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-DEFAULT_DYFORM_BASE_TEMPLATE = "base.html"
+# DEFAULT_DYFORM_BASE_TEMPLATE = "base.html"
