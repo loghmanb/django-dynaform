@@ -1,6 +1,8 @@
+{% extends DYFORM_BASE_TEMPLATE %}
 {% load static %}
 {% load dynaform %}
 {% block content %}
+{{ DYFORM_BASE_TEMPLATE }}
 <div class="comment-form-wrap pt-5">
     <h3 class="mb-5 h4 font-weight-bold">DynaForm Data [{{ dynaform.name }}]</h3>
     <form action="{% url 'dynaform-data-edit' dynaform.name dynaform_data.id %}" method="POST" class="p-5 bg-light">

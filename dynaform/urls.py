@@ -24,8 +24,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('dynaform-data/<form_name>',
+    path('dynaform-data/<dynaform_name>',
          views.dynaform_data_list, name='dynaform-data-list'),
-    path('dynaform-data/<form_name>/<int:id>',
+    path('dynaform-data/<dynaform_name>/<int:pk>',
          views.dynaform_data, name='dynaform-data-edit')
 ]

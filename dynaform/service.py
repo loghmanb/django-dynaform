@@ -28,6 +28,7 @@ def get_dynaform_and_data(dynaform_name: str) -> Union[None, List[Dict[str, Any]
 
 
 class ChoiceFieldValue(str):
+    """Choice field value class."""
     _value: Optional[Union[str, int]] = None
     _choices: Dict = {}
 
@@ -40,7 +41,7 @@ class ChoiceFieldValue(str):
         return self._choices.get(self._value)
 
     @property
-    def value(self) -> Optional[Union[str, int]]:
+    def value(self) -> Union[str, int]:
         return self._value
 
 

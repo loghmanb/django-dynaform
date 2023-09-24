@@ -4,7 +4,7 @@ from .const import *
 
 
 def create_form_field(
-        structure, 
+        structure,
         default_field_class=DEFAULT_FIELD_CLASS,
         field2class_mapper=DEFAULT_FIELD_TO_CLASS_MAPPER,
         text_field_widget=TEXT_FIELD_WIDGET) -> Field:
