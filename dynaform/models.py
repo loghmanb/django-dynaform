@@ -14,8 +14,8 @@ class DynaForm(models.Model):
         if not self.name.isidentifier():
             raise ValidationError({
                 "name": f"'{self.name}' is NOT a valid identifier!"
-                })
-        
+            })
+
     def __str__(self) -> str:
         return f"{self.label} [{self.name}]"
 

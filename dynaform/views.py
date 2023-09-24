@@ -18,30 +18,36 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
+from django.conf import settings
 from django.shortcuts import get_object_or_404, render
 from django.template.response import TemplateResponse
 
 from . import models, forms
 
 
-def dynaform_data_list(request, form_name):
-    dynaform = models.DynaForm.objects.get(name=form_name)
+DEFAULT_DYFORM_BASE_TEMPLATE = getattr(settings, 'DEFAULT_DYFORM_BASE_TEMPLATE', "dynaform_base.html")
+
+
+def dynaform_data_list(request, dynaform_name: str):
+    dynaform = models.DynaForm.objects.get(name=dynaform_name)
     columns = list(dynaform.structure.keys())
     rows = models.DynaFormData.objects.filter(dynaform_id=dynaform.id)
-    return TemplateResponse(request, 'dynaform-data-list.html', 
+    return TemplateResponse(request, 'dynaform-data-list.html',
                             {
-                                'columns': columns, 
+                                'columns': columns,
                                 'rows': rows
                             })
 
 
-def dynaform_data(request, form_name, id):
-    dynaform_data_record = get_object_or_404(models.DynaFormData, pk=id)
-    data = {'dynaform_data': dynaform_data_record}
+def dynaform_data(request, dynaform_name: str, pk: int):
+    dynaform_data_record = get_object_or_404(models.DynaFormData, pk=pk, dynaform__name=dynaform_name)
+    data = {
+        'DYFORM_BASE_TEMPLATE': DEFAULT_DYFORM_BASE_TEMPLATE,
+        'dynaform_data': dynaform_data_record,
+    }
     data["dynaform"] = dynaform_data_record.dynaform
     form = forms.DynaFormData(
-        dynaform_data_record.dynaform.structure, 
+        dynaform_data_record.dynaform.structure,
         request.POST or None)
     if request.POST:
         if form.is_valid():
