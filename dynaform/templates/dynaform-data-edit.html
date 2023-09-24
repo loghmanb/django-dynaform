@@ -2,16 +2,16 @@
 {% load static %}
 {% load dynaform %}
 {% block content %}
-{{ DYFORM_BASE_TEMPLATE }}
-<div class="comment-form-wrap pt-5">
+<div class="dynaform-form">
     <h3 class="mb-5 h4 font-weight-bold">DynaForm Data [{{ dynaform.name }}]</h3>
     <form action="{% url 'dynaform-data-edit' dynaform.name dynaform_data.id %}" method="POST" class="p-5 bg-light">
         {% csrf_token %}
         {{ form.non_field_errors }}
         {% for field in form.fields %}
-        <div class="form-group">
-
-            <label for="{{ form|id_for_label:field }}" {% if form|field_errors:field %} style="color:red" {% endif %}>
+        <div class="mb-3 dynaform-form-control-item">
+            <label class="form-label" 
+                for="{{ form|id_for_label:field }}"
+                {% if form|field_errors:field %} style="color:red" {% endif %}>
                 {{ form|field_label:field}}
             </label>
             {{ form|form_field:field }}

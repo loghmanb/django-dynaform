@@ -25,7 +25,7 @@ from django.template.response import TemplateResponse
 from . import models, forms
 
 
-DEFAULT_DYFORM_BASE_TEMPLATE = getattr(settings, 'DEFAULT_DYFORM_BASE_TEMPLATE', "dynaform_base.html")
+DEFAULT_DYFORM_BASE_TEMPLATE = getattr(settings, 'DEFAULT_DYFORM_BASE_TEMPLATE', "dynaform-base.html")
 
 
 def dynaform_data_list(request, dynaform_name: str):
