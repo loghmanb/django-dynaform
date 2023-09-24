@@ -2,11 +2,12 @@
 {% load static %}
 {% load dynaform %}
 {% block content %}
-<table>
+<div class="dynaform-form">
+<table class="table">
     <thead>
         <tr>
             {% for column in columns %}
-            <th>{{ column }}</th>
+            <th scope="col">{{ column }}</th>
             {% endfor %}
         </tr>
     </thead>
@@ -18,4 +19,5 @@
         </tr>{% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock %}
