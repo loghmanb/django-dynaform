@@ -1,10 +1,11 @@
 from django.forms import Form, Field
+from typing import Dict
 
 from .const import *
 
 
 def create_form_field(
-        structure, 
+        structure: Dict,
         default_field_class=DEFAULT_FIELD_CLASS,
         field2class_mapper=DEFAULT_FIELD_TO_CLASS_MAPPER,
         text_field_widget=TEXT_FIELD_WIDGET) -> Field:
@@ -17,10 +18,9 @@ def create_form_field(
     return klass(**structure)
 
 
-class DynaForm(Form):
-    def __init__(self, structure, *args, **kwargs):
-        super(DynaForm, self).__init__(*args, **kwargs)
+class DynaFormData(Form):
+    def __init__(self, structure: Dict, *args, **kwargs):
+        super(DynaFormData, self).__init__(*args, **kwargs)
 
-        for field_stru in structure:
-            field_name = field_stru.pop(FIELD_NAME)
-            self.fields[field_name] = create_form_field(field_stru)
+        for field, field_stru in structure.items():
+            self.fields[field] = create_form_field(field_stru)
