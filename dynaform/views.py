@@ -19,27 +19,33 @@
 #
 ##############################################################################
 from django.conf import settings
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.template.response import TemplateResponse
 
 from . import models, forms
 
 
-DEFAULT_DYFORM_BASE_TEMPLATE = getattr(settings, 'DEFAULT_DYFORM_BASE_TEMPLATE', "dynaform-base.html")
+DEFAULT_DYFORM_BASE_TEMPLATE: str = getattr(settings, 'DEFAULT_DYFORM_BASE_TEMPLATE', "dynaform-base.html")
 
 
-def dynaform_data_list(request, dynaform_name: str):
+def dynaform_data_list(request: HttpRequest, dynaform_name: str) -> HttpResponse:
+    """View for list of DynaForm data."""
     dynaform = models.DynaForm.objects.get(name=dynaform_name)
     columns = list(dynaform.structure.keys())
     rows = models.DynaFormData.objects.filter(dynaform_id=dynaform.id)
-    return TemplateResponse(request, 'dynaform-data-list.html',
-                            {
-                                'columns': columns,
-                                'rows': rows
-                            })
+    return TemplateResponse(
+        request,
+        'dynaform-data-list.html',
+        {
+            'DYFORM_BASE_TEMPLATE': DEFAULT_DYFORM_BASE_TEMPLATE,
+            'columns': columns,
+            'rows': rows
+        })
 
 
-def dynaform_data(request, dynaform_name: str, pk: int):
+def dynaform_data(request: HttpRequest, dynaform_name: str, pk: int) -> HttpResponse:
+    """View for editing a DynaForm data item."""
     dynaform_data_record = get_object_or_404(models.DynaFormData, pk=pk, dynaform__name=dynaform_name)
     data = {
         'DYFORM_BASE_TEMPLATE': DEFAULT_DYFORM_BASE_TEMPLATE,

@@ -23,26 +23,30 @@ def get_dynaform_and_data(dynaform_name: str) -> Union[None, List[Dict[str, Any]
             )
             result.append(data)
         return result
+
     except DynaForm.DoesNotExist:
         return None
 
 
 class ChoiceFieldValue(str):
     """Choice field value class."""
-    
+
     _value: Optional[Union[str, int]] = None
     _choices: Dict = {}
 
     def init(self, value: Optional[Union[str, int]], choices: Dict) -> None:
+        """Init class."""
         self._value = value
         self._choices = choices
 
     @property
     def label(self) -> str:
+        """Label property."""
         return self._choices.get(self._value)
 
     @property
-    def value(self) -> Union[str, int]:
+    def value(self) -> Optional[Union[str, int]]:
+        """Value property."""
         return self._value
 
 
