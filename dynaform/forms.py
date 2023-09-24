@@ -17,10 +17,9 @@ def create_form_field(
     return klass(**structure)
 
 
-class DynaForm(Form):
+class DynaFormData(Form):
     def __init__(self, structure, *args, **kwargs):
-        super(DynaForm, self).__init__(*args, **kwargs)
+        super(DynaFormData, self).__init__(*args, **kwargs)
 
-        for field_stru in structure:
-            field_name = field_stru.pop(FIELD_NAME)
-            self.fields[field_name] = create_form_field(field_stru)
+        for field, field_stru in structure.items():
+            self.fields[field] = create_form_field(field_stru)

@@ -1,0 +1,24 @@
+{% load static %}
+{% load dynaform %}
+{% block content %}
+<div class="comment-form-wrap pt-5">
+    <h3 class="mb-5 h4 font-weight-bold">DynaForm Data [{{ dynaform.name }}]</h3>
+    <form action="{% url 'dynaform-data-edit' dynaform.name dynaform_data.id %}" method="POST" class="p-5 bg-light">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form.fields %}
+        <div class="form-group">
+
+            <label for="{{ form|id_for_label:field }}" {% if form|field_errors:field %} style="color:red" {% endif %}>
+                {{ form|field_label:field}}
+            </label>
+            {{ form|form_field:field }}
+            <div style="color:red">{{ form|field_errors:field }}</div>
+        </div>
+        {% endfor %}
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn py-3 px-4 btn-primary">
+        </div>
+    </form>
+</div>
+{% endblock %}
