@@ -21,7 +21,7 @@
 
 from django.conf import settings
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.response import TemplateResponse
 
 from . import models, forms
@@ -57,14 +57,19 @@ def dynaform_data(request: HttpRequest, dynaform_name: str, pk: int) -> HttpResp
         "DYFORM_BASE_TEMPLATE": DEFAULT_DYFORM_BASE_TEMPLATE,
         "dynaform_data": dynaform_data_record,
         "dynaform": dynaform_data_record.dynaform,
+        "edit": request.resolver_match.url_name == "dynaform-data-edit",
     }
     form = forms.DynaFormData(
         dynaform_data_record.dynaform.structure, request.POST or None
     )
     if request.POST:
-        if form.is_valid():
-            dynaform_data_record.data = form.cleaned_data
-            dynaform_data_record.save()
+        if data["edit"]:
+            if form.is_valid():
+                dynaform_data_record.data = form.cleaned_data
+                dynaform_data_record.save()
+        else:
+            dynaform_data_record.delete()
+            return redirect("dynaform-data-list", dynaform_name=dynaform_name)
     else:
         form.data = dynaform_data_record.data
     data["form"] = form

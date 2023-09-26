@@ -25,13 +25,18 @@ from . import views
 
 urlpatterns = [
     path(
-        "dynaform-data/<dynaform_name>",
-        views.dynaform_data_list,
-        name="dynaform-data-list",
+        "dynaform-data/<dynaform_name>/<int:pk>/delete",
+        views.dynaform_data,
+        name="dynaform-data-delete",
     ),
     path(
         "dynaform-data/<dynaform_name>/<int:pk>",
         views.dynaform_data,
         name="dynaform-data-edit",
+    ),
+    path(
+        "dynaform-data/<dynaform_name>",
+        views.dynaform_data_list,
+        name="dynaform-data-list",
     ),
 ]

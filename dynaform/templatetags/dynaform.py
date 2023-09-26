@@ -28,7 +28,7 @@ from django.forms import Form
 register = template.Library()
 
 
-@register.filter(name='id_for_label')
+@register.filter(name="id_for_label")
 def id_for_label(form: Form, field_name: str) -> str:
     """Return id for label to use in html template."""
     return form.auto_id % field_name
@@ -49,24 +49,44 @@ def field_label(form, field):
 @register.filter
 def field_errors(form, field):
     """Field error filter."""
-    return form.errors.get(field) or ''
+    return form.errors.get(field) or ""
 
 
-@register.inclusion_tag('link_to_dynaform_data_edit.html', takes_context=True)
+@register.inclusion_tag("link-to-dynaform-data-edit.html", takes_context=True)
 def link_to_dynaform_data_edit(
-    context: Optional[Dict], 
-    dynaform_data: Dict[str, Any], 
-    link_class: str="", 
-    edit: Optional[bool] = None):
+    context: Optional[Dict],
+    dynaform_data: Dict[str, Any],
+    link_class: str = "",
+    edit: Optional[bool] = None,
+):
     """Create a link to edit the dynaform data."""
 
     if edit is None:
-        edit = 'edit' in context["request"].GET
+        edit = "edit" in context["request"].GET
     return {
-        'form_name': dynaform_data.dynaform.name,
-        'record_id': dynaform_data.id,
+        "form_name": dynaform_data.dynaform.name,
+        "record_id": dynaform_data.id,
         "link_class": link_class,
-        'edit_mode': edit,
+        "edit_mode": edit,
+    }
+
+
+@register.inclusion_tag("link-to-dynaform-data-delete.html", takes_context=True)
+def link_to_dynaform_data_delete(
+    context: Optional[Dict],
+    dynaform_data: Dict[str, Any],
+    link_class: str = "",
+    edit: Optional[bool] = None,
+):
+    """Create a link to delete the dynaform data."""
+
+    if edit is None:
+        edit = "edit" in context["request"].GET
+    return {
+        "form_name": dynaform_data.dynaform.name,
+        "record_id": dynaform_data.id,
+        "link_class": link_class,
+        "edit_mode": edit,
     }
 
 

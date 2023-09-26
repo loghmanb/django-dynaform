@@ -17,7 +17,12 @@
                 {% for column in columns %}
                 <th>{{ row.data|get_item:column }}</th>
                 {% endfor %}
-                <th>{% link_to_dynaform_data_edit row "btn btn-primary" %}</th>
+                <th>
+                    {% link_to_dynaform_data_edit row "btn btn-primary" %}
+                    <form method="delete">
+                        {% link_to_dynaform_data_delete row "btn btn-danger" %}
+                    </form>
+                </th>
             </tr>{% endfor %}
         </tbody>
     </table>
