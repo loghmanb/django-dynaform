@@ -1,20 +1,45 @@
+"""Test forms."""
 import unittest
 
 from django import forms
 
 from dynaform import const
-from dynaform.forms import create_form_field
+from dynaform.forms import create_form_field, DynaFormData
 
 
 class TestCreateFormFieldMethod(unittest.TestCase):
-    def test_create_form_field(self):
+    """Test create form field."""
+
+    def test_create_char_field(self):
+        """Test char field."""
         structure = {
             const.FIELD_TYPE: const.CHAR_FIELD,
-            }
+            const.FIELD_REQUIRED: False,
+        }
         field = create_form_field(structure)
         self.assertIsInstance(field, forms.CharField)
+        self.assertFalse(field.required)
 
-    
+    def test_create_boolean_field(self):
+        """Test boolean field."""
+        structure = {
+            const.FIELD_TYPE: const.BOOLEAN_FIELD,
+        }
+        field = create_form_field(structure)
+        self.assertIsInstance(field, forms.BooleanField)
+        self.assertFalse(field.required)
+
+
 class TestDynaForm(unittest.TestCase):
-    def test_create_form(self):
-        pass
+    """Test DynaForm."""
+
+    def test_create_form_for_dynaform_data(self):
+        """Test create form for dynaform data."""
+        structure = {
+            "name": {const.FIELD_TYPE: const.CHAR_FIELD},
+            "is_active": {const.FIELD_TYPE: const.BOOLEAN_FIELD},
+        }
+        dynaform_data = DynaFormData(structure, None)
+        self.assertEqual(len(dynaform_data.fields), 2)
+        self.assertIsInstance(dynaform_data.fields["name"], forms.CharField)
+        self.assertIsInstance(dynaform_data.fields["is_active"], forms.BooleanField)
