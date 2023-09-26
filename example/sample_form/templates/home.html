@@ -5,31 +5,31 @@
   <h1>Django DynaForm Example</h1>
   <hr>
   <h5>
-    Implemented by: Loghman Barari 
+    Implemented by: Loghman Barari
     <a href="https://www.linkedin.com/in/loghman-barari-13095724/" target="_blank"><i class="bi bi-linkedin"></i></a>
     <a href="https://github.com/loghmanb" target="_blank"><i class="bi bi-github"></i></a>
   </h5>
-      <h6>Email: <a href="mailto:loghmanb@gmail.com">loghmanb@gmail.com</a></h6>
-      <hr>
+  <h6>Email: <a href="mailto:loghmanb@gmail.com">loghmanb@gmail.com</a></h6>
+  <hr>
 
-      <p><a href="/admin">Create new DynaForm</a></p>
+  <p><a href="/admin">Create new DynaForm</a></p>
 
-      {% if dynaform.phone_book %}
-      <div class="form">
-        {% for contact in dynaform.phone_book %}
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">{{ contact.full_name }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ contact.job_title }}</h6>
-            <p class="card-text">{{ contact.contact_type.label }}: {{ contact.phone }}</p>
-            <p class="card-text">{{ contact.note }}</p>
-            <p class="card-text"><a href="mailto:{{ contact.email }}" class="card-link">{{ contact.email }}</a></p>
-            <p>{% link_to_dynaform_data_edit contact "btn btn-primary" %}</p>
-            <a href="#" class="btn btn-danger">Delete</a>
-          </div>
-        </div>
-        {% endfor %}
-      {% endif %}
+  {% if dynaform.phone_book %}
+  <div class="form">
+    {% for contact in dynaform.phone_book %}
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{ contact.full_name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ contact.job_title }}</h6>
+        <p class="card-text">{{ contact.contact_type.label }}: {{ contact.phone }}</p>
+        <p class="card-text">{{ contact.note }}</p>
+        <p class="card-text"><a href="mailto:{{ contact.email }}" class="card-link">{{ contact.email }}</a></p>
+        <p>{% link_to_dynaform_data_edit contact "btn btn-primary" %}</p>
+        <p>{% link_to_dynaform_data_delete contact "btn btn-danger" %}</p>
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
   </div>
 </div>
 {% endblock content %}
