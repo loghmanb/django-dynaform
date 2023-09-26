@@ -1,3 +1,5 @@
+"""Base settings."""
+
 import os
 
 

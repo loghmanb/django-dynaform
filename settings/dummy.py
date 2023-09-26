@@ -1,3 +1,5 @@
+"""Dummy settings."""
+
 from settings.base import *  # noqa
 
 
