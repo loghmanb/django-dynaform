@@ -3,21 +3,23 @@
 {% load dynaform %}
 {% block content %}
 <div class="dynaform-form">
-<table class="table">
-    <thead>
-        <tr>
-            {% for column in columns %}
-            <th scope="col">{{ column }}</th>
-            {% endfor %}
-        </tr>
-    </thead>
-    <tbody>{% for row in rows %}
-        <tr>
-            {% for column in columns %}
-            <th>{{ row.data|get_item:column }}</th>
-            {% endfor %}
-        </tr>{% endfor %}
-    </tbody>
-</table>
+    <table class="table">
+        <thead>
+            <tr>
+                {% for column in columns %}
+                <th scope="col">{{ column }}</th>
+                {% endfor %}
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>{% for row in rows %}
+            <tr>
+                {% for column in columns %}
+                <th>{{ row.data|get_item:column }}</th>
+                {% endfor %}
+                <th>{% link_to_dynaform_data_edit row "btn btn-primary" %}</th>
+            </tr>{% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

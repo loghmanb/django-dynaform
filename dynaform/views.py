@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    KiddosDjango,
-#    Copyright (C) 2020 Loghman Barari (<https://github.com/loghmanb/KiddosDjango>).
+#    DjangoDynaForm,
+#    Copyright (C) 2023 Loghman Barari (<https://github.com/loghmanb/django-dynaform>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,6 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from django.conf import settings
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, render
@@ -26,7 +27,9 @@ from django.template.response import TemplateResponse
 from . import models, forms
 
 
-DEFAULT_DYFORM_BASE_TEMPLATE: str = getattr(settings, 'DEFAULT_DYFORM_BASE_TEMPLATE', "dynaform-base.html")
+DEFAULT_DYFORM_BASE_TEMPLATE: str = getattr(
+    settings, "DEFAULT_DYFORM_BASE_TEMPLATE", "dynaform-base.html"
+)
 
 
 def dynaform_data_list(request: HttpRequest, dynaform_name: str) -> HttpResponse:
@@ -36,30 +39,33 @@ def dynaform_data_list(request: HttpRequest, dynaform_name: str) -> HttpResponse
     rows = models.DynaFormData.objects.filter(dynaform_id=dynaform.id)
     return TemplateResponse(
         request,
-        'dynaform-data-list.html',
+        "dynaform-data-list.html",
         {
-            'DYFORM_BASE_TEMPLATE': DEFAULT_DYFORM_BASE_TEMPLATE,
-            'columns': columns,
-            'rows': rows
-        })
+            "DYFORM_BASE_TEMPLATE": DEFAULT_DYFORM_BASE_TEMPLATE,
+            "columns": columns,
+            "rows": rows,
+        },
+    )
 
 
 def dynaform_data(request: HttpRequest, dynaform_name: str, pk: int) -> HttpResponse:
     """View for editing a DynaForm data item."""
-    dynaform_data_record = get_object_or_404(models.DynaFormData, pk=pk, dynaform__name=dynaform_name)
+    dynaform_data_record = get_object_or_404(
+        models.DynaFormData, pk=pk, dynaform__name=dynaform_name
+    )
     data = {
-        'DYFORM_BASE_TEMPLATE': DEFAULT_DYFORM_BASE_TEMPLATE,
-        'dynaform_data': dynaform_data_record,
+        "DYFORM_BASE_TEMPLATE": DEFAULT_DYFORM_BASE_TEMPLATE,
+        "dynaform_data": dynaform_data_record,
+        "dynaform": dynaform_data_record.dynaform,
     }
-    data["dynaform"] = dynaform_data_record.dynaform
     form = forms.DynaFormData(
-        dynaform_data_record.dynaform.structure,
-        request.POST or None)
+        dynaform_data_record.dynaform.structure, request.POST or None
+    )
     if request.POST:
         if form.is_valid():
             dynaform_data_record.data = form.cleaned_data
             dynaform_data_record.save()
     else:
         form.data = dynaform_data_record.data
-    data['form'] = form
-    return render(request, 'dynaform-data-edit.html', data)
+    data["form"] = form
+    return render(request, "dynaform-data-edit.html", data)

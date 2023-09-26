@@ -9,9 +9,8 @@
         {{ form.non_field_errors }}
         {% for field in form.fields %}
         <div class="mb-3 dynaform-form-control-item">
-            <label class="form-label" 
-                for="{{ form|id_for_label:field }}"
-                {% if form|field_errors:field %} style="color:red" {% endif %}>
+            <label class="form-label" for="{{ form|id_for_label:field }}" {% if form|field_errors:field %}
+                style="color:red" {% endif %}>
                 {{ form|field_label:field}}
             </label>
             {{ form|form_field:field }}
@@ -20,6 +19,7 @@
         {% endfor %}
         <div class="form-group">
             <input type="submit" value="Save" class="btn py-3 px-4 btn-primary">
+            <a href='{% url "dynaform-data-list" dynaform.name %}'>Go to list of {{dynaform.name}}.</a>
         </div>
     </form>
 </div>
