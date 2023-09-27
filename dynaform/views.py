@@ -24,8 +24,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.response import TemplateResponse
 
-from . import models, forms
-
+from . import forms, models
 
 DEFAULT_DYFORM_BASE_TEMPLATE: str = getattr(
     settings, "DEFAULT_DYFORM_BASE_TEMPLATE", "dynaform-base.html"

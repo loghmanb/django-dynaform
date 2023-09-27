@@ -21,9 +21,9 @@
 ##############################################################################
 
 from typing import Any, Dict, Optional
+
 from django import template
 from django.forms import Form
-
 
 register = template.Library()
 

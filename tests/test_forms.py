@@ -4,7 +4,7 @@ import unittest
 from django import forms
 
 from dynaform import const
-from dynaform.forms import create_form_field, DynaFormData
+from dynaform.forms import DynaFormData, create_form_field
 
 
 class TestCreateFormFieldMethod(unittest.TestCase):

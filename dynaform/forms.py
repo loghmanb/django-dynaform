@@ -20,17 +20,18 @@
 ##############################################################################
 
 from typing import Any, Dict, Optional
-from django.forms import Form, Field
+
+from django.forms import Field, Form
 
 from .const import (
     BOOLEAN_FIELD,
     DEFAULT_FIELD_CLASS,
+    DEFAULT_FIELD_TO_CLASS_MAPPER,
+    FIELD_REQUIRED,
     FIELD_TYPE,
     FIELD_WIDGET,
-    FIELD_REQUIRED,
     TEXT_FIELD,
     TEXT_FIELD_WIDGET,
-    DEFAULT_FIELD_TO_CLASS_MAPPER,
 )
 
 

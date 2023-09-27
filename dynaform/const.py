@@ -20,8 +20,8 @@
 ##############################################################################
 
 from typing import Dict
-from django import forms
 
+from django import forms
 
 TEXT_FIELD = "text"
 BOOLEAN_FIELD = "bool"
