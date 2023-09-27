@@ -30,10 +30,10 @@ jobs:
 
       - name: Lint
         run: |
-          run python ./manage.py makemigrations --check
-          run black --check .
-          run isort --check .
-          run flake8
+          python ./manage.py makemigrations --check
+          black --check .
+          isort --check .
+          flake8
 
       - name: Test
         run: python manage.py test
