@@ -4,9 +4,10 @@
     "cpus": 2
   },
   "waitFor": "onCreateCommand",
-  "updateContentCommand": "",
+  "updateContentCommand": "pip install -r requirements.txt && python manage.py makemigrations",
   "postCreateCommand": "",
   "postAttachCommand": {
+    "server": "python manage.py test"
   },
   "customizations": {
     "codespaces": {
