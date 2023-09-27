@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    KiddosDjango,
-#    Copyright (C) 2020 Loghman Barari (<https://github.com/loghmanb/KiddosDjango>).
+#    DjangoDynaForm,
+#    Copyright (C) 2023 Loghman Barari (<https://github.com/loghmanb/django-dynaform>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -24,8 +24,19 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('dynaform-data/<dynaform_name>',
-         views.dynaform_data_list, name='dynaform-data-list'),
-    path('dynaform-data/<dynaform_name>/<int:pk>',
-         views.dynaform_data, name='dynaform-data-edit')
+    path(
+        "dynaform-data/<dynaform_name>/<int:pk>/delete",
+        views.dynaform_data,
+        name="dynaform-data-delete",
+    ),
+    path(
+        "dynaform-data/<dynaform_name>/<int:pk>",
+        views.dynaform_data,
+        name="dynaform-data-edit",
+    ),
+    path(
+        "dynaform-data/<dynaform_name>",
+        views.dynaform_data_list,
+        name="dynaform-data-list",
+    ),
 ]

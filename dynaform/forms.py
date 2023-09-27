@@ -1,14 +1,50 @@
-from django.forms import Form, Field
-from typing import Dict
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    DjangoDynaForm,
+#    Copyright (C) 2023 Loghman Barari (<https://github.com/loghmanb/django-dynaform>).
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
 
-from .const import *
+from typing import Any, Dict, Optional
+
+from django.forms import Field, Form
+
+from .const import (
+    BOOLEAN_FIELD,
+    DEFAULT_FIELD_CLASS,
+    DEFAULT_FIELD_TO_CLASS_MAPPER,
+    FIELD_REQUIRED,
+    FIELD_TYPE,
+    FIELD_WIDGET,
+    TEXT_FIELD,
+    TEXT_FIELD_WIDGET,
+)
 
 
 def create_form_field(
-        structure: Dict,
-        default_field_class=DEFAULT_FIELD_CLASS,
-        field2class_mapper=DEFAULT_FIELD_TO_CLASS_MAPPER,
-        text_field_widget=TEXT_FIELD_WIDGET) -> Field:
+    structure: Dict,
+    default_field_class: Field = DEFAULT_FIELD_CLASS,
+    field2class_mapper: Optional[Dict[str, Field]] = None,
+    text_field_widget: Field = TEXT_FIELD_WIDGET,
+) -> Field:
+    """Create form's field."""
+
+    if field2class_mapper is None:
+        field2class_mapper = DEFAULT_FIELD_TO_CLASS_MAPPER
     field_type = structure.pop(FIELD_TYPE)
     if field_type == TEXT_FIELD and structure.get(FIELD_WIDGET) is None:
         structure[FIELD_WIDGET] = text_field_widget()
@@ -19,7 +55,9 @@ def create_form_field(
 
 
 class DynaFormData(Form):
-    def __init__(self, structure: Dict, *args, **kwargs):
+    """DyanForm data class."""
+
+    def __init__(self, structure: Dict[str, Dict[str, Any]], *args, **kwargs):
         super(DynaFormData, self).__init__(*args, **kwargs)
 
         for field, field_stru in structure.items():
