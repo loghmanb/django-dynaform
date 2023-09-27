@@ -5,7 +5,5 @@ from dynaform.service import DynaFormContext
 
 
 def home(request) -> HttpResponse:
-    context = {
-        'dynaform': DynaFormContext()
-    }
+    context = {"dynaform": DynaFormContext()}
     return render(request, "home.html", context=context)
