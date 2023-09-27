@@ -12,7 +12,8 @@ REQUIRED_PYTHON = (3, 6)
 
 # This check and everything above must remain compatible with Python 2.7.
 if CURRENT_PYTHON < REQUIRED_PYTHON:
-    sys.stderr.write("""
+    sys.stderr.write(
+        """
 ==========================
 Unsupported Python version
 ==========================
@@ -32,12 +33,15 @@ your version of Python. If you can't upgrade your pip (or Python), request
 an older version of Django DynaForm:
 
     $ python -m pip install "django-dynaform<3.10"
-""".format(*(REQUIRED_PYTHON + CURRENT_PYTHON)))
+""".format(
+            *(REQUIRED_PYTHON + CURRENT_PYTHON)
+        )
+    )
     sys.exit(1)
 
 
 def read(f):
-    with open(f, 'r', encoding='utf-8') as file:
+    with open(f, "r", encoding="utf-8") as file:
         return file.read()
 
 
@@ -45,15 +49,15 @@ def get_version(package):
     """
     Return package version as listed in `__version__` in `init.py`.
     """
-    print(os.path.join(package, '__init__.py'))
-    init_py = open(os.path.join(package, '__init__.py')).read()
+    print(os.path.join(package, "__init__.py"))
+    init_py = open(os.path.join(package, "__init__.py")).read()
     return re.search("__version__ = ['\"]([^'\"]+)['\"]", init_py).group(1)
 
 
-version = get_version('dynaform')
+version = get_version("dynaform")
 
 
-if sys.argv[-1] == 'publish':
+if sys.argv[-1] == "publish":
     if os.system("pip freeze | grep twine"):
         print("twine not installed.\nUse `pip install twine`.\nExiting.")
         sys.exit()
@@ -66,53 +70,53 @@ if sys.argv[-1] == 'publish':
     print("You probably want to also tag the version now:")
     print("  git tag -a %s -m 'version %s'" % (version, version))
     print("  git push --tags")
-    shutil.rmtree('dist')
-    shutil.rmtree('build')
-    shutil.rmtree('django-dynaform.egg-info')
+    shutil.rmtree("dist")
+    shutil.rmtree("build")
+    shutil.rmtree("django-dynaform.egg-info")
     sys.exit()
 
 
 setup(
-    name='django-dynaform',
+    name="django-dynaform",
     version=version,
-    url='https://github.com/loghmanb/django-dynaform',
-    license='BSD',
-    description='Dynamic form for Django',
-    long_description=read('README.md'),
-    long_description_content_type='text/markdown',
-    author='Loghman Barari',
-    author_email='loghmanb@gmail.com',  # SEE NOTE BELOW (*)
-    packages=find_packages(exclude=['tests*']),
+    url="https://github.com/loghmanb/django-dynaform",
+    license="BSD",
+    description="Dynamic form for Django",
+    long_description=read("README.md"),
+    long_description_content_type="text/markdown",
+    author="Loghman Barari",
+    author_email="loghmanb@gmail.com",  # SEE NOTE BELOW (*)
+    packages=find_packages(exclude=["tests*"]),
     include_package_data=True,
     install_requires=["django>=3.0", 'backports.zoneinfo;python_version<"3.9"'],
     python_requires=">=3.6",
     zip_safe=False,
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Environment :: Web Environment',
-        'Framework :: Django',
-        'Framework :: Django :: 3.0',
-        'Framework :: Django :: 3.1',
-        'Framework :: Django :: 3.2',
-        'Framework :: Django :: 4.0',
-        'Framework :: Django :: 4.1',
-        'Framework :: Django :: 4.2',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3.10',
-        'Programming Language :: Python :: 3.11',
-        'Programming Language :: Python :: 3 :: Only',
-        'Topic :: Internet :: WWW/HTTP',
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Web Environment",
+        "Framework :: Django",
+        "Framework :: Django :: 3.0",
+        "Framework :: Django :: 3.1",
+        "Framework :: Django :: 3.2",
+        "Framework :: Django :: 4.0",
+        "Framework :: Django :: 4.1",
+        "Framework :: Django :: 4.2",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: BSD License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3 :: Only",
+        "Topic :: Internet :: WWW/HTTP",
     ],
     project_urls={
-        'Source': 'https://github.com/loghmanb/django-dynaform',
+        "Source": "https://github.com/loghmanb/django-dynaform",
     },
 )
 
