@@ -27,7 +27,7 @@ from django.template.response import TemplateResponse
 from . import forms, models
 
 DEFAULT_DYFORM_BASE_TEMPLATE: str = getattr(
-    settings, "DEFAULT_DYFORM_BASE_TEMPLATE", "dynaform-base.html"
+    settings, "DEFAULT_DYFORM_BASE_TEMPLATE", "dynaform/base.html"
 )
 
 
@@ -38,7 +38,7 @@ def dynaform_data_list(request: HttpRequest, dynaform_name: str) -> HttpResponse
     rows = models.DynaFormData.objects.filter(dynaform_id=dynaform.id)
     return TemplateResponse(
         request,
-        "dynaform-data-list.html",
+        "dynaform/dynaform-data-list.html",
         {
             "DYFORM_BASE_TEMPLATE": DEFAULT_DYFORM_BASE_TEMPLATE,
             "columns": columns,
@@ -72,4 +72,4 @@ def dynaform_data(request: HttpRequest, dynaform_name: str, pk: int) -> HttpResp
     else:
         form.data = dynaform_data_record.data
     data["form"] = form
-    return render(request, "dynaform-data-edit.html", data)
+    return render(request, "dynaform/dynaform-data-edit.html", data)
