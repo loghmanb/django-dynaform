@@ -1,2 +1,2 @@
 django
--e git+https://github.com/loghmanb/django-dynaform.git@5f5e83fae350923621e48ecb927c543aaee0c2b3#egg=django-dynaform
+django-dynaform==0.0.1a7
