@@ -52,7 +52,7 @@ def field_errors(form, field):
     return form.errors.get(field) or ""
 
 
-@register.inclusion_tag("link-to-dynaform-data-edit.html", takes_context=True)
+@register.inclusion_tag("dynaform/link-to-dynaform-data-edit.html", takes_context=True)
 def link_to_dynaform_data_edit(
     context: Optional[Dict],
     dynaform_data: Dict[str, Any],
@@ -71,7 +71,9 @@ def link_to_dynaform_data_edit(
     }
 
 
-@register.inclusion_tag("link-to-dynaform-data-delete.html", takes_context=True)
+@register.inclusion_tag(
+    "dynaform/link-to-dynaform-data-delete.html", takes_context=True
+)
 def link_to_dynaform_data_delete(
     context: Optional[Dict],
     dynaform_data: Dict[str, Any],
