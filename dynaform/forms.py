@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from typing import Any, Dict, Optional
+from typing import Any, Callable, Dict, Optional
 
 from django.forms import Field, Form
 
@@ -57,8 +57,16 @@ def create_form_field(
 class DynaFormData(Form):
     """DyanForm data class."""
 
-    def __init__(self, structure: Dict[str, Dict[str, Any]], *args, **kwargs):
+    def __init__(
+            self,
+            structure: Dict[str, Dict[str, Any]],
+            *args,
+            custom_create_form_field_func: Callable=None,
+            **kwargs):
         super(DynaFormData, self).__init__(*args, **kwargs)
 
+        if custom_create_form_field_func is None:
+            custom_create_form_field_func = create_form_field
+
         for field, field_stru in structure.items():
-            self.fields[field] = create_form_field(field_stru)
+            self.fields[field] = custom_create_form_field_func(field_stru)
