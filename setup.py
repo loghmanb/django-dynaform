@@ -29,10 +29,7 @@ have pip >= 9.0 and setuptools >= 24.2, then try again:
     $ python -m pip install django-dynaform
 
 This will install the latest version of Django DynaForm which works on
-your version of Python. If you can't upgrade your pip (or Python), request
-an older version of Django DynaForm:
-
-    $ python -m pip install "django-dynaform<3.10"
+your version of Python.
 """.format(
             *(REQUIRED_PYTHON + CURRENT_PYTHON)
         )
