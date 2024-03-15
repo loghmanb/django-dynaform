@@ -50,14 +50,15 @@ class TestDynaForm(unittest.TestCase):
         structure = {
             "name": {"type": "string"},
         }
+
         def custom_create_field(stru):
             new_stru = {}
             for f, d in stru.items():
                 new_stru[f] = {}
-                if d['type'] == 'string':
+                if d["type"] == "string":
                     new_stru[f][const.FIELD_TYPE] = const.CHAR_FIELD
             return create_form_field(new_stru)
-        
+
         dynaform_data = DynaFormData(structure, None)
         self.assertEqual(len(dynaform_data.fields), 1)
         self.assertIsInstance(dynaform_data.fields["name"], forms.CharField)

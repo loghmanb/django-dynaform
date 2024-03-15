@@ -58,11 +58,12 @@ class DynaFormData(Form):
     """DyanForm data class."""
 
     def __init__(
-            self,
-            structure: Dict[str, Dict[str, Any]],
-            *args,
-            custom_create_form_field_func: Callable=None,
-            **kwargs):
+        self,
+        structure: Dict[str, Dict[str, Any]],
+        *args,
+        custom_create_form_field_func: Callable = None,
+        **kwargs
+    ):
         super(DynaFormData, self).__init__(*args, **kwargs)
 
         if custom_create_form_field_func is None:
