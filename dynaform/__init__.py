@@ -12,7 +12,7 @@ r"""
 import django
 
 __title__ = "DynaForm"
-__version__ = "0.0.3"
+__version__ = "0.1.0"
 __author__ = "Loghman Barari"
 __license__ = "BSD 3-Clause"
 __copyright__ = "Copyright 2022-Present Loghman Barari"
