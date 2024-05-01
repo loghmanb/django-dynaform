@@ -12,10 +12,10 @@ r"""
 import django
 
 __title__ = "DynaForm"
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __author__ = "Loghman Barari"
 __license__ = "BSD 3-Clause"
-__copyright__ = "Copyright 2022-Present Loghman Barari"
+__copyright__ = "Copyright 2023-Present Loghman Barari"
 
 # Version synonym
 VERSION = __version__

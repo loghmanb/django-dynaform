@@ -7,7 +7,7 @@ Dynamic form for Django framework
 
 Dynamic Django forms allow users to define, edit, and populate their own entities and apply runtime schema changes to them. `django-dynaform` is a unique tools to empower your project with more dynamicity with minimum database changes. It is ideal and unique tools for frequently changing and/or temporary data structures. It is the goal of this project to provide a bring dynamicity with maximum benefit to a project with less effort.
 
-This package provides models to help admin users quickly add/change/drop dynamic models for their specific use case, and use them in dynamic templates. The schema changes are applied in the runtime, *without* database metadata changes, so it could use in dynamic templates with zero downtime and any side effects of changing in data structure.
+[This package](https://pypi.org/project/django-dynaform/) provides models to help admin users quickly add/change/drop dynamic models for their specific use case, and use them in dynamic templates. The schema changes are applied in the runtime, *without* database metadata changes, so it could use in dynamic templates with zero downtime and any side effects of changing in data structure.
 
 > **Disclaimer**:
 > 
@@ -15,7 +15,7 @@ This package provides models to help admin users quickly add/change/drop dynamic
 
 ## Example project
 
-You can download an example project from https://github.com/loghmanb/django-dynaform/example
+You can download an example project from https://github.com/loghmanb/django-dynaform/tree/main/example
 go to the folder and run below commands
 
 ```shell

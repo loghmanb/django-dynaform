@@ -1,2 +1,2 @@
 django
-django-dynaform==0.0.3
+django-dynaform
