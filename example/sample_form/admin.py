@@ -19,10 +19,21 @@
 #
 ##############################################################################
 
-from django.urls import path
+from django.contrib import admin
 
-from . import views
+from .models import Templates
 
-urlpatterns = [
-    path("", views.home, name="home"),
-]
+
+class TemplatesAdmin(admin.ModelAdmin):
+    """Templates admin form."""
+
+    list_display = (
+        "id",
+        "name",
+    )
+    list_display_links = ("id", "name")
+    search_fields = ("name",)
+    list_per_page = 25
+
+
+admin.site.register(Templates, TemplatesAdmin)

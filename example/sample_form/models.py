@@ -18,11 +18,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from django.db import models
 
-from django.urls import path
 
-from . import views
+class Templates(models.Model):
+    """Templates data model."""
 
-urlpatterns = [
-    path("", views.home, name="home"),
-]
+    name = models.CharField("Name", max_length=50, null=False, blank=False, unique=True)
+    template = models.TextField("Template", null=False)
